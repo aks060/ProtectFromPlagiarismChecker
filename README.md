@@ -10,3 +10,7 @@ This is a python script to protect yourself from Plagiarism Checkers
     
     #eg:   *Hello World*    Output:  Hello World
            Hello World      Output: welcome earth
+           
+           
+           
+  People are invited to contribute and update skip.txt file
