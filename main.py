@@ -1,15 +1,27 @@
 import requests
 import json
+import sys
+
+inp=sys.argv
+sen=''
+noun=1
+if '-s' in inp:
+	ind=inp.index('-s')
+	sen=inp[ind+1]
+
+if '-nonoun' in inp:
+	noun=0
 
 s=requests.session()
 
 skip=open('skip.txt').read()
 skip=skip.split("\n")
 #print(skip)
+tochange=0
 
 skiptext=0
 def getsynnony(word):
-	global s, skip, skiptext
+	global s, skip, skiptext, tochange, noun
 	if '*' in word:
 		if skiptext==0:
 			skiptext=1
@@ -29,6 +41,9 @@ def getsynnony(word):
 	if js['data']==None:
 		return word
 	#js['data']['definitionData']['definitions']['0']['synonyms']))
+	tmp=js['data']['definitionData']['definitions'][0]['pos']
+	if noun==0 and tmp=='noun':
+		return word 
 	js=js['data']['definitionData']['definitions'][0]['synonyms']
 	maxsim=49
 	finalword=word
@@ -40,9 +55,14 @@ def getsynnony(word):
 				maxsim=int(i['similarity'])
 	return finalword
 
-sen=input('Enter sentence: ')
+if sen=='':
+	sen=input('Enter sentence: ')
+#percent=int(input('Enter percentage to change: '))
 newsen=[]
 sen=sen.split(' ')
+totallen=len(sen)
+#print(totallen)
+#tochange=(percent//100)*totallen
 print("\n\n\n")
 for i in sen:
 	res=getsynnony(i)
