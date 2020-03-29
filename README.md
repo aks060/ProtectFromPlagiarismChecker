@@ -11,6 +11,7 @@ This is a python script to protect yourself from Plagiarism Checkers
     #eg:   *Hello World*    Output:  Hello World
            Hello World      Output: welcome earth
            
-           
+    #use -s argv for command line argument
+            eg: python3 main.py -s "Hello World"
            
   People are invited to contribute and update skip.txt file
